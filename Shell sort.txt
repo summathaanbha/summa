@@ -1,0 +1,32 @@
+#include<stdio.h>
+void shellsort(int [],int);
+int main()
+{int a[100];
+int n,i;
+printf("\nenter no of elements in a array");
+scanf("%d",&n);
+for(i=0;i<n;i++)
+{
+printf("\nenter");
+scanf("%d",&a[i]);
+}
+shellsort(a,n);
+printf("\nsorted order");
+for(i=0;i<n;i++)
+{
+printf("%d\t",a[i]);}
+}
+void shellsort(int a[],int n)
+{
+int gap,i,j;
+for(gap=n/2;gap>0;gap/=2)
+{
+for(i=gap;i<n;i++)
+{
+int temp=a[i];
+for(j=i;j>=gap&&a[j-gap]>temp;j=j-gap)
+{
+a[j]=a[j-gap];
+}
+a[j]=temp;
+} }}

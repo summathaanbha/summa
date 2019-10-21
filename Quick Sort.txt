@@ -1,0 +1,57 @@
+#include<stdio.h>
+int partition(int[],int,int);
+void swap(int*,int*);
+void display(int[],int);
+void quicksort(int[],int,int);
+int n;
+void main()
+{
+int s[100];
+printf("\nenter the number of terms in the array");
+scanf("%d",&n);
+for(int i=0;i<n;i++)
+{
+printf("\nenter");
+scanf("%d",&s[i]);
+}
+quicksort(s,0,n-1);
+display(s,n);
+}
+void swap(int* a,int* b)
+{
+int temp;
+temp=*a;
+*a=*b;
+*b=temp;
+}
+int partition(int s[],int low,int high)
+{
+int pivot=s[high];
+int i=low-1;
+for(int j=low;j<high;j++)
+{
+if(s[j]<pivot)
+{
+i++;
+swap(&s[i],&s[j]);
+}
+}
+swap(&s[i+1],&s[high]);
+return i+1;
+}
+void quicksort(int s[],int low,int high)
+{
+if(low<high)
+{
+int p;
+p=partition(s,low,high);
+quicksort(s,low,p-1);
+quicksort(s,p+1,high);
+}
+}
+void display(int s[],int n)
+{
+for(int j=0;j<n;j++)
+{
+printf("\n%d",s[j]);
+} }
