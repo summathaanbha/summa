@@ -1,0 +1,306 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+int data;
+struct node *link;
+}*head;
+void create(int n);
+void insertfront(int);
+void insertend(int);
+void insertpos(int,int);
+void print();
+void makeempty();
+int length();
+void deletefront();
+void deleteend();
+void deletepos(int);
+void findkth(int);
+void nextele(int);
+void find(int,int);
+void create(int n)
+{
+struct node *temp=NULL;
+struct node *last=NULL;
+head=(struct node*)malloc(sizeof(struct node));
+printf("\nEnter the value of first node:");
+scanf("%d",&head->data);
+head->link=NULL;
+temp=head;
+for(int i=0;i<n-1;i++)
+{
+last=(struct node*)malloc(sizeof(struct node));
+printf("enter the element: ");
+scanf("%d",&last->data);
+last->link=NULL;
+temp->link=last;
+temp=temp->link;
+}
+void print()
+{
+struct node *t;
+t=head;
+while(t->link!=NULL)
+{
+printf("%d-->",t->data);
+t=t->link;
+}
+if(t->link==NULL)
+{
+printf("%d",t->data);
+}
+}
+void insertfront(int data)
+{
+struct node *new=NULL;
+new=(struct node*)malloc((sizeof(struct node)));
+new->data=data;
+new->link=head;
+head=new;
+printf("\nthe element is inserted at front");
+}
+void insertend(int data)
+{
+struct node *newnode=NULL;
+newnode=(struct node*)malloc(sizeof(struct node));
+struct node *last=head;
+newnode->data=data;
+newnode->link=NULL;
+if(head==NULL)
+{
+head=newnode;
+return;
+}
+else
+{
+while(last->link!=NULL)
+{
+last=last->link;
+}
+last->link=newnode;
+printf("\n the element is inserted at end");
+return;
+}
+}
+void insertpos(int p,int data)
+{
+struct node *t=head;
+struct node *new=NULL;
+new=(struct node *)malloc(sizeof(struct node));
+new->data=data;
+new->link=NULL;
+for(int i=0;i<p-1&&t!=NULL;i++)//for(i=1) the element will be inserted at the position
+{
+t=t->link;
+}
+new->link=t->link;
+t->link=new;
+}
+void findkth(int p)
+{
+struct node *t=head;
+for(int i=0;i<p-1&&t!=NULL;i++)//for(i=1) the element will be inserted at the position
+{
+t=t->link;
+}
+printf("\nthe data present in the position %d is %d",p,t->data);
+}
+void makeempty()
+{
+struct node *temp=head;
+while(head)
+{
+head=head->link;
+free(temp);
+temp=head;
+}
+printf("\n the list is emptied");
+}
+int length()
+{
+int n=0;
+struct node *t=head;
+if(t==NULL)
+{
+n=0;
+}
+else
+{
+while(t)
+{
+n+=1;
+t=t->link;
+}
+}
+return n;
+}
+void deletefront()
+{
+struct node *temp=head;
+head=head->link;
+free(temp);
+}
+void deleteend()
+{
+struct node *ptr,*ptr1;
+if(head==NULL)
+{
+printf("\n list is empty");
+}
+else if(head->link==NULL)
+{
+head=NULL;
+free(head);
+}
+else
+{
+ptr=head;
+while(ptr->link!=NULL)
+{
+ptr1=ptr;
+ptr=ptr->link;
+}
+ptr1->link=NULL;
+free(ptr);
+}
+}
+void deletepos(int p)
+{
+struct node *t=head;
+for (int i=1;t!=NULL&&i<p-1;i++)
+{
+t=t->link;
+}
+struct node *next=t->link->link;
+free(t->link);
+t->link=next;
+printf("\nthe element is successfully deleted at the position %d",p);
+}
+void nextele(int p)
+{
+struct node *t=head;
+for (int i=0;t!=NULL&&i<p-1;i++)
+{
+t=t->link;
+}
+t=t->link;
+printf("\nthe next element is %d",t->data);
+}
+void find(int ele,int n)
+{
+struct node *temp=head;
+for(int i=1;i<=n;i++)
+{
+if(temp->data==ele)
+{
+printf("\n the element %d is found at the position %d",ele,i);
+break;
+}
+else
+{
+temp=temp->link;
+}
+}
+}
+void main()
+{
+int ch;
+printf("\t\t\t\tLINKEDLIST\n");
+printf("\n1.create a linkedlist\n2.insert at front\n3.insert at end\n4.print the linkedlist\n5.length of the linkedlist\n");
+printf("6.make the list empty\n7.insert at given position\n8.delete at front\n9.delete at end\n10.delete at given position\n");
+printf("11.find the element at the given position\n12.find the next element\n13.find the position of the given element\n\n");
+scanf("%d",&ch);
+while(ch)
+{
+if(ch==1)
+{
+int n;
+printf("\nenter the number of terms to be created in the linked list\n");
+scanf("%d",&n);
+create(n);
+printf("\nsuccessfully created");
+}
+else if(ch==2)
+{
+int n;
+printf("\nenter the data to be inserted at front\n");
+scanf("%d",&n);
+insertfront(n);
+}
+else if(ch==3)
+{
+int n;
+printf("\nenter the data to be inserted at end\n");
+scanf("%d",&n);
+insertend(n);
+}
+else if(ch==4)
+{
+print();
+printf("\nsuccessfully printed");
+}
+else if(ch==5)
+{
+int n;
+n=length();
+printf("\nthe length of the linked list is %d",n);
+}
+else if(ch==6)
+{
+makeempty();
+}
+else if(ch==7)
+{
+int data,pos;
+printf("\n enter the data to be inserted\n");
+scanf("%d",&data);
+printf("\nenter the position to be inserted");
+scanf("%d",&pos);
+insertpos(pos,data);
+}
+else if(ch==8)
+{
+deletefront();
+printf("\n the element is successfully deleted at front\n");
+}
+else if(ch==9)
+{
+deleteend();
+printf("\n the element is deleted at end");
+}
+else if(ch==10)
+{
+int pos;
+printf("\nenter the position of the element to be deleted");
+scanf("%d",&pos);
+deletepos(pos);
+}
+else if(ch==11)
+{
+int pos;
+printf("\nenter the position:");
+scanf("%d",&pos);
+findkth(pos);
+}
+else if(ch==12)
+{
+int pos;
+printf("\nenter the position:");
+scanf("%d",&pos);
+nextele(pos);
+}
+else if(ch==13)
+{
+int ele,n;
+printf("\nenter the element to which postion has to be found");
+scanf("%d",&ele);
+n=length();
+find(ele,n);
+}
+else{
+printf("\ninvalid choice");
+}
+printf("\nenter your choice");
+scanf("%d",&ch);
+}
+}

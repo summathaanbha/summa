@@ -1,0 +1,93 @@
+#include<stdio.h>
+#include<stdlib.h>
+int peek();
+void push();
+void pop();
+void display();
+int stack[100],n,top=-1;
+int main()
+{
+int choice;
+printf("\nenter the number of elements");
+scanf("%d",&n);
+printf("\n1.insertion\n2.deletion\n3.print the elements\n4.peek\n\nEnter the choice:\n");
+scanf("%d",&choice);
+while(choice)
+{
+switch(choice)
+{
+case 1:
+{
+push();
+break;
+}
+case 2:
+{
+pop();
+break;
+}
+case 3:
+{
+display();
+break;
+}
+case 4:
+{
+int a;
+a=peek();
+printf("\npeeked value from the stack=%d",a);
+break;
+}
+default:
+printf("\nInvalid choice");
+}
+printf("\nenter the choice");
+scanf("%d",&choice);
+}
+}
+void push()
+{
+if(top>=n-1)
+{
+printf("\n overflow stack is full");
+}
+else{
+int ele;
+printf("\nenter the value of th element to be pushed");
+scanf("%d",&ele);
+top+=1;
+stack[top]=ele;
+printf("\nthe element %d is inserted!",ele);
+}
+}
+void pop()
+{
+if(top==-1)
+{
+printf("\nstack is empty");
+}
+else
+{
+printf("\nthe element %d is popped",stack[top]);
+top-=1;
+}
+}
+void display()
+{
+for(int i=top;i>=0;i--)
+{
+printf("%d\n",stack[i]);
+}
+}
+int peek()
+{
+if(top==-1)
+{
+printf("\nstack is empty");
+return 0;
+}
+else
+{
+return (stack[top]);
+}
+}
